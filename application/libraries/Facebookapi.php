@@ -43,15 +43,17 @@ class Facebookapi {
 
 		    $all_posts = array();
 
+		    //get all page post in single array
 		    do
 		    {
 		    	foreach ($postsEdge as $post) {
 	    			$post_array = $post->asArray();
+	    			//get likes count of post
 		    		$post_likes = $this->fb->get($post_array['id'].'/likes?summary=1',
 				        $this->fb->getApp()->getAccessToken()->getValue()
 				    )->getBody();
 			    	$post_likes = json_decode($post_likes);
-
+			    	//get comments count of post
 			    	$post_comments = $this->fb->get($post_array['id'].'/comments?summary=1',
 				        $this->fb->getApp()->getAccessToken()->getValue()
 				    )->getBody();
