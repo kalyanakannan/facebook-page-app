@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+
 class Welcome extends CI_Controller {
 
 	/**
@@ -20,6 +21,12 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$this->load->library('facebookapi');
+		$response =  $this->facebookapi->getPosts('208708862489818');
+		print_r($response);
+		// return $this->output
+  //           ->set_content_type('application/json')
+  //           ->set_status_header(200)
+  //           ->set_output(json_encode($response));
 	}
 }

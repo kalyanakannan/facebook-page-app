@@ -16,7 +16,8 @@
 		"paragonie/random_compat": "^2.0",
 		"guzzlehttp/guzzle": "^6.3",
 		"psr/log": "^1.0",
-		"chriskacerguis/codeigniter-restserver": "^3.0"
+		"chriskacerguis/codeigniter-restserver": "^3.0",
+		"nesbot/carbon": "^1.22"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
