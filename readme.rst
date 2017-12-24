@@ -22,8 +22,10 @@ Config facebook app key in config file *config/facebook.php*
 ```
 // facebook app id
 $config['app_id'] = 'your facebook app id';
+
 // facebook app secret
 $config['app_secret'] = 'your facebook app secret';
+
 // defaukt facebook grap api version
 $config['default_graph_version'] = 'v2.10';
 
