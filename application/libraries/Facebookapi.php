@@ -9,8 +9,13 @@ class Facebookapi {
 
 	public function __construct()
     {
+    	//get CI instance
     	$this->ci =& get_instance();
+    	//load database
+    	$this->ci->load->model('posts_model');
+    	//load facebook config files
     	$this->ci->config->load('facebook');
+
         $this->fb = new \Facebook\Facebook([
 		  'app_id' =>  $this->ci->config->item('app_id'),
 		  'app_secret' => $this->ci->config->item('app_secret'),
@@ -47,21 +52,38 @@ class Facebookapi {
 		    do
 		    {
 		    	foreach ($postsEdge as $post) {
-	    			$post_array = $post->asArray();
+	    			$fb_post = $post->asArray();
 	    			//get likes count of post
-		    		$post_likes = $this->fb->get($post_array['id'].'/likes?summary=1',
+		    		$post_likes = $this->fb->get($fb_post['id'].'/likes?summary=1',
 				        $this->fb->getApp()->getAccessToken()->getValue()
 				    )->getBody();
 			    	$post_likes = json_decode($post_likes);
 			    	//get comments count of post
-			    	$post_comments = $this->fb->get($post_array['id'].'/comments?summary=1',
+			    	$post_comments = $this->fb->get($fb_post['id'].'/comments?summary=1',
 				        $this->fb->getApp()->getAccessToken()->getValue()
 				    )->getBody();
 			    	$post_comments = json_decode($post_comments);
 
-			    	$post_array['likes'] = $post_likes->summary->total_count;
-			    	$post_array['comments'] = $post_comments->summary->total_count;
-		    		array_push($all_posts,$post_array); 
+			    	$post = array();
+			    	$post['post_id'] = $fb_post['id'];
+					$post['page_id'] = $page_id;
+					$post['title'] = $fb_post['message'];
+					if(array_key_exists('description',$fb_post))
+						$post['description'] = $fb_post['description'];
+					else
+						$post['description'] = "";
+					if(array_key_exists('picture',$fb_post))
+						$post['image_url'] = $fb_post['picture'];
+					else
+						$post['image_url'] = "";
+					$post['likes'] = $post_likes->summary->total_count;
+					$post['comments_count'] = $post_comments->summary->total_count;
+					$dt = Carbon\Carbon::instance($fb_post['created_time']);
+					$post['published_date'] = $dt->toDateTimeString();
+
+					$insert_results = $this->ci->posts_model->insert_or_update_post($post);
+					
+		    		array_push($all_posts,$post); 
 		    	}
 
 		    } while($postsEdge = $this->fb->next($postsEdge));
@@ -76,6 +98,10 @@ class Facebookapi {
 		  // When validation fails or other local issues
 		  echo 'Facebook SDK returned an error: ' . $e->getMessage();
 		  exit;
+		}
+		catch(Exception $e)
+		{
+			return $e;
 		}
     }
 }

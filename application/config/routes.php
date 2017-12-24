@@ -50,5 +50,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'welcome';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+$route['test'] = 'welcome/test';
+$route['api/getData'] = 'api/facebook/posts';
+$route['api/deletePost'] = 'api/facebook/deletePost';
+$route['api/updatePost'] = 'api/facebook/updatePost';
+$route['api/fetchData'] = 'api/facebook/fetchData';
+$route['api/searchPosts'] = 'api/facebook/searchPosts';

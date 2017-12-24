@@ -16,6 +16,7 @@ class Migration_page_posts extends CI_Migration {
                         'post_id' => array(
                                 'type' => 'VARCHAR',
                                 'constraint' => '200',
+                                'unique' => TRUE
                         ),
                         'page_id' => array(
                                 'type' => 'VARCHAR',

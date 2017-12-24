@@ -21,12 +21,11 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->library('facebookapi');
-		$response =  $this->facebookapi->getPosts('208708862489818');
-		print_r($response);
-		// return $this->output
-  //           ->set_content_type('application/json')
-  //           ->set_status_header(200)
-  //           ->set_output(json_encode($response));
+		echo "poda";
+	}
+	public function test()
+	{
+		echo "podsf";
+		
 	}
 }
