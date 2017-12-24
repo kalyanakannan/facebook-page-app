@@ -51,12 +51,7 @@ http://localhost/{project-folder}/
 
 ## API URLS
 ```
-base url = http://localhost/{project-folder}/
-get posst from facebook page api/getData
-api/deletePost
-api/updatePost
-api/fetchData
-api/searchPosts
+base url = http://localhost/{project-folder}/index.php
 ```
 
 for getting post from facebook page
