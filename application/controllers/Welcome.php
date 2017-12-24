@@ -21,11 +21,6 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		echo "poda";
-	}
-	public function test()
-	{
-		echo "podsf";
-		
+		$this->load->view('welcome_message');
 	}
 }
